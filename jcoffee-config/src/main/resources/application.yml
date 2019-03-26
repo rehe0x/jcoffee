@@ -1,0 +1,19 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: jcoffee-config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config/
+
+eureka:
+  client:
+    serviceUrl:
+        defaultZone: http://localhost:9000/eureka/
+  instance:
+    prefer-ip-address: true
