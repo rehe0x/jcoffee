@@ -14,5 +14,6 @@
 
    <modules>
        <module>jcoffee-database-order</module>
+       <module>jcoffee-database-mall</module>
    </modules>
 </project>

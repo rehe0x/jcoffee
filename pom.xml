@@ -50,13 +50,16 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${spring-boot.mybatis.version}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-dependencies</artifactId>-->
-                <!--<version>${spring-boot.version}</version>-->
-                <!--<type>pom</type>-->
-                <!--<scope>import</scope>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>com.jcoffee</groupId>
+                <artifactId>jcoffee-database-order</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jcoffee</groupId>
+                <artifactId>jcoffee-database-mall</artifactId>
+                <version>1.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

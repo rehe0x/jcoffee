@@ -12,6 +12,10 @@
     <artifactId>jcoffee-commons</artifactId>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>jcoffee-commons-basics</module>
+    </modules>
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>

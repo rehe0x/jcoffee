@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jcoffee.database.mall.mapper.BannerMapper">
+	<resultMap id="banner" type="com.jcoffee.database.mall.entity.Banner">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="path" column="path" />
+		<result property="url" column="url" />
+		<result property="state" column="state" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="basicQuery">
+		SELECT
+		id,
+		name,
+		path,
+		url,
+		state,
+		create_time,
+		update_time
+		FROM t_banner
+	</sql>
+	<sql id="basicWhere">
+		<where>
+				<if test="id != null and id != ''">
+					and id = #{id}
+				</if>
+				<if test="name != null and name != ''">
+					and name = #{name}
+				</if>
+				<if test="path != null and path != ''">
+					and path = #{path}
+				</if>
+				<if test="url != null and url != ''">
+					and url = #{url}
+				</if>
+					
+				<if test="createTime != null and createTime != ''">
+					and create_time = #{createTime}
+				</if>
+				<if test="updateTime != null and updateTime != ''">
+					and update_time = #{updateTime}
+				</if>
+				<![CDATA[ and state < 2 ]]>
+			</where>
+	</sql>
+
+	<select id="queryList" resultMap="banner">
+		SELECT * FROM(
+		<include refid="basicQuery" />
+		<include refid="basicWhere" />
+		)AS t
+		<if test="pageSize != null and pageSize != ''">
+			<![CDATA[ LIMIT ${pageNo},${pageSize}]]>
+		</if>
+	</select>
+
+	<select id="queryCount" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(1) as c
+		from(
+		<include refid="basicQuery" />
+		<include refid="basicWhere" />
+		)as t
+	</select>
+
+	<select id="query" resultMap="banner">
+		<include refid="basicQuery" />
+		where id = #{id}
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			INSERT INTO t_banner(
+																name,
+													path,
+													url,
+													state,
+													create_time,
+													update_time
+									)VALUES(
+													#{name},
+													#{path},
+													#{url},
+													#{state},
+													sysdate(),
+													sysdate()
+									)
+		]]>
+	</insert>
+	<update id="update">
+		UPDATE t_banner SET
+		<if test="name != null and name != ''">
+			name = #{name},
+		</if>
+		<if test="path != null and path != ''">
+			path = #{path},
+		</if>
+		<if test="url != null and url != ''">
+			url = #{url},
+		</if>
+		<if test="state != null">
+			state = #{state},
+		</if>
+			update_time = sysdate()
+		WHERE id= #{id}
+	</update>
+
+	<update id="delete" parameterType="java.lang.String">
+		UPDATE t_banner SET state = 2,update_time = sysdate() WHERE id in
+		<foreach item="idItem" collection="array" open="(" separator=","
+			close=")">
+			#{idItem}
+		</foreach>
+	</update>
+</mapper>

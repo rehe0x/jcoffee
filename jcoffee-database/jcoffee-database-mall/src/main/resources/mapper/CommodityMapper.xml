@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jcoffee.database.mall.mapper.CommodityMapper">
+	<resultMap id="commodity" type="com.jcoffee.database.mall.entity.Commodity">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="remark" column="remark" />
+		<result property="price" column="price" />
+		<result property="costPrice" column="cost_price" />
+		<result property="restrictionsNum" column="restrictions_num" />
+		<result property="alreadyNum" column="already_num" />
+		<result property="fictitiousNum" column="fictitious_num" />
+		<result property="limitNum" column="limit_num" />
+		<result property="province" column="province" />
+		<result property="city" column="city" />
+		<result property="area" column="area" />
+		<result property="landmark" column="landmark" />
+		<result property="metro" column="metro" />
+		<result property="shopsId" column="shops_id" />
+		<result property="shopsName" column="shops_name" />
+		<result property="shopsImg" column="shops_img" />
+		<result property="shopsArea" column="shops_area" />
+		<result property="shopsMobile" column="shops_mobile" />
+		<result property="shopsLongitude" column="shops_longitude" />
+		<result property="shopsLatitude" column="shops_latitude" />
+		<result property="startTime" column="start_time" />
+		<result property="endTime" column="end_time" />
+		<result property="noticeImg" column="notice_img" />
+		<result property="listImg" column="list_img" />
+		<result property="createTime" column="create_time" />
+		<result property="cancelStartTime" column="cancel_start_time" />
+		<result property="cancelEndTime" column="cancel_end_time" />
+		<result property="bannerUrl" column="banner_url" />
+		<result property="shareUrl" column="share_url" />
+		<result property="hidden" column="hidden" />
+		<result property="typeId" column="type_id" />
+		<result property="typeName" column="type_name" />
+		<result property="state" column="state" />
+		<result property="detailsImg" column="details_img" />
+		<result property="adImg" column="ad_img" />
+		<result property="version" column="version" />
+		<!-- <collection property="commodityFilelist" column="id"
+			javaType="ArrayList" ofType="commodityFile" select="getCommodityFileByCommoditId">
+		</collection> -->
+	</resultMap>
+	<sql id="basicQuery">
+		<include refid="basicSelect" />
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<if test="remark != null and remark != ''">
+				and remark = #{remark}
+			</if>
+			<if test="price != null">
+				and price = #{price}
+			</if>
+			<if test="costPrice != null">
+				and cost_price = #{costPrice}
+			</if>
+			<if test="restrictionsNum != null">
+				and restrictions_num = #{restrictionsNum}
+			</if>
+			<if test="alreadyNum != null">
+				and already_num = #{alreadyNum}
+			</if>
+			<if test="fictitiousNum != null">
+				and fictitious_num = #{fictitiousNum}
+			</if>
+			<if test="province != null and province != ''">
+				and province = #{province}
+			</if>
+			<if test="city != null and city != ''">
+				and city = #{city}
+			</if>
+			<if test="area != null and area != ''">
+				and area = #{area}
+			</if>
+			<if test="landmark != null and landmark != ''">
+				and landmark = #{landmark}
+			</if>
+			<if test="metro != null and metro != ''">
+				and metro = #{metro}
+			</if>
+			<if test="shopsId != null and shopsId != ''">
+				and shops_id = #{shopsId}
+			</if>
+			<if test="shopsName != null and shopsName != ''">
+				and shops_name = #{shopsName}
+			</if>
+			<if test="shopsArea != null and shopsArea != ''">
+				and shops_area = #{shopsArea}
+			</if>
+			<if test="shopsMobile != null and shopsMobile != ''">
+				and shops_mobile = #{shopsMobile}
+			</if>
+			<if test="shopsLongitude != null and shopsLongitude != ''">
+				and shops_longitude = #{shopsLongitude}
+			</if>
+			<if test="shopsLatitude != null and shopsLatitude != ''">
+				and shops_latitude = #{shopsLatitude}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				and start_time = #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				and end_time = #{endTime}
+			</if>
+			<if test="checkStartTime != null">
+				<![CDATA[ 
+					and date_format(start_time, '%Y%m%d') <= date_format(sysdate(), '%Y%m%d')
+					and date_format(end_time, '%Y%m%d') >= date_format(sysdate(), '%Y%m%d')
+				]]>
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="hidden != null and hidden != ''">
+				and hidden = #{hidden}
+			</if>
+			<if test="typeId != null and typeId != ''">
+				and type_id = #{typeId}
+			</if>
+			<if test="typeName != null and typeName != ''">
+				and type_name = #{typeName}
+			</if>
+			<if test="state != null">
+				and state = #{state}
+			</if>
+			<if test="key != null  and key != ''">
+				<![CDATA[ and (name like #{key} or remark like #{key} or area like #{shops_area}) ]]>
+			</if>
+		</where>
+	</sql>
+
+	<sql id="basicSelect">
+		SELECT
+		id,
+		name,
+		remark,
+		shops_img,
+		price,
+		ad_img,
+		limit_num,
+		cost_price,
+		restrictions_num,
+		already_num,
+		fictitious_num,
+		province,
+		city,
+		area,
+		landmark,
+		metro,
+		shops_id,
+		shops_name,
+		shops_area,
+		shops_mobile,
+		shops_longitude,
+		shops_latitude,
+		start_time,
+		end_time,
+		notice_img,
+		list_img,
+		create_time,
+		banner_url,
+		share_url,
+		hidden,
+		type_id,
+		type_name,
+		cancel_start_time,
+		cancel_end_time,
+		details_img,
+		version,
+		state
+		FROM t_commodity
+	</sql>
+	<select id="queryList" resultMap="commodity">
+		<include refid="basicQuery" />
+		ORDER BY create_time DESC
+		<if test="pageSize != null and pageSize != ''">
+			<![CDATA[ LIMIT ${pageNo},${pageSize}]]>
+		</if>
+		
+	</select>
+
+	<select id="queryCount" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(1) as c
+		from(
+		<include refid="basicQuery" />
+		)as t
+	</select>
+
+	<select id="query" resultMap="commodity" parameterType="java.lang.Integer">
+		<include refid="basicSelect" />
+		WHERE id = #{id}
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			INSERT INTO t_commodity(
+							name,
+							price,
+							cost_price,
+							restrictions_num,
+							province,
+							city,
+							area,
+							landmark,
+							metro,
+							shops_id,
+							shops_name,
+							shops_area,
+							shops_mobile,
+							shops_longitude,
+							shops_latitude,
+							shops_img,
+							start_time,
+							end_time,
+							notice_img,
+							list_img,
+							details_img,
+							create_time,
+							banner_url,
+							share_url,
+							hidden,
+							type_id,
+							state,
+							limit_num,
+							cancel_start_time,
+							cancel_end_time,
+							type_name
+			)VALUES(
+							#{name},
+							#{price},
+							#{costPrice},
+							#{restrictionsNum},
+							#{province},
+							#{city},
+							#{area},
+							#{landmark},
+							#{metro},
+							#{shopsId},
+							#{shopsName},
+							#{shopsArea},
+							#{shopsMobile},
+							#{shopsLongitude},
+							#{shopsLatitude},
+							#{shopsImg},
+							#{startTime},
+							#{endTime},
+							#{noticeImg},
+							#{listImg},
+							#{detailsImg},
+							sysdate(),
+							#{bannerUrl},
+							#{shareUrl},
+							#{hidden},
+							#{typeId},
+							#{state},
+							#{limitNum},
+							#{cancelStartTime},
+							#{cancelEndTime},
+							#{typeName}
+			)
+		]]>
+	</insert>
+	<update id="update">
+		UPDATE t_commodity SET
+		<if test="name != null">
+			name = #{name},
+		</if>
+		<if test="remark != null">
+			remark = #{remark},
+		</if>
+		<if test="limitNum != null">
+			limit_num = #{limitNum},
+		</if>
+		<if test="price != null">
+			price = #{price},
+		</if>
+		<if test="costPrice != null">
+			cost_price = #{costPrice},
+		</if>
+		<if test="shopsImg != null">
+			shops_img = #{shopsImg},
+		</if>
+		<if test="restrictionsNum != null">
+			restrictions_num = #{restrictionsNum},
+		</if>
+		<if test="alreadyPayNum != null">
+			already_num = already_num + #{alreadyPayNum},
+		</if>
+		<if test="fictitiousNum != null">
+			fictitious_num = #{fictitiousNum},
+		</if>
+		<if test="province != null and province != ''">
+			province = #{province},
+		</if>
+		<if test="city != null and city != ''">
+			city = #{city},
+		</if>
+		<if test="detailsImg != null and detailsImg != ''">
+			details_img = #{detailsImg},
+		</if>
+		<if test="area != null and area != ''">
+			area = #{area},
+		</if>
+		<if test="landmark != null and landmark != ''">
+			landmark = #{landmark},
+		</if>
+		<if test="metro != null and metro != ''">
+			metro = #{metro},
+		</if>
+		<if test="shopsId != null">
+			shops_id = #{shopsId},
+		</if>
+		<if test="shopsName != null and shopsName != ''">
+			shops_name = #{shopsName},
+		</if>
+		<if test="shopsArea != null and shopsArea != ''">
+			shops_area = #{shopsArea},
+		</if>
+		<if test="shopsMobile != null and shopsMobile != ''">
+			shops_mobile = #{shopsMobile},
+		</if>
+		<if test="shopsLongitude != null and shopsLongitude != ''">
+			shops_longitude = #{shopsLongitude},
+		</if>
+		<if test="shopsLatitude != null and shopsLatitude != ''">
+			shops_latitude = #{shopsLatitude},
+		</if>
+		<if test="startTime != null">
+			start_time = #{startTime},
+		</if>
+		<if test="endTime != null">
+			end_time = #{endTime},
+		</if>
+		<if test="noticeImg != null and noticeImg != ''">
+			notice_img = #{noticeImg},
+		</if>
+		<if test="listImg != null and listImg != ''">
+			list_img = #{listImg},
+		</if>
+		<if test="bannerUrl != null and bannerUrl != ''">
+			banner_url = #{bannerUrl},
+		</if>
+		<if test="shareUrl != null and shareUrl != ''">
+			share_url = #{shareUrl},
+		</if>
+		<if test="hidden != null">
+			hidden = #{hidden},
+		</if>
+		<if test="typeId != null">
+			type_id = #{typeId},
+		</if>
+		<if test="typeName != null and typeName != ''">
+			type_name = #{typeName},
+		</if>
+		<if test="state != null">
+			state = #{state},
+		</if>
+		<if test="cancelStartTime != null">
+			cancel_start_time = #{cancelStartTime},
+		</if>
+		<if test="cancelEndTime != null ">
+			cancel_end_time = #{cancelEndTime},
+		</if>
+		<if test="adImg != null and adImg != ''">
+			ad_img = #{adImg},
+		</if>
+		update_time = sysdate(),
+		version = version + 1
+		<![CDATA[ WHERE id= #{id} and version = #{version} and already_num < restrictions_num ]]>
+	</update>
+
+	<update id="delete" parameterType="java.lang.String">
+		UPDATE t_commodity SET state = 4,update_time = sysdate() WHERE id in
+		<foreach item="idItem" collection="array" open="(" separator=","
+			close=")">
+			#{idItem}
+		</foreach>
+	</update>
+</mapper>

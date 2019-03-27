@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jcoffee.database.mall.mapper.ShopsMapper">
+	<resultMap id="shops" type="com.jcoffee.database.mall.entity.Shops">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="mobile" column="mobile" />
+		<result property="contacts" column="contacts" />
+		<result property="area" column="area" />
+		<result property="parentId" column="parent_id" />
+		<result property="userName" column="user_name" />
+		<result property="password" column="password" />
+		<result property="phone" column="phone" />
+		<result property="state" column="state" />
+		<result property="img" column="img" />
+		<result property="accumulateNum" column="accumulate_num" />
+		<result property="accumulateMoney" column="accumulate_money" />
+		<result property="version" column="version" />
+		<result property="updateTime" column="update_time" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+	<sql id="basicQuery">
+		<include refid="basicSelect" />
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				and mobile = #{mobile}
+			</if>
+			<if test="contacts != null and contacts != ''">
+				and contacts = #{contacts}
+			</if>
+			<if test="area != null and area != ''">
+				and area = #{area}
+			</if>
+			<if test="parentId != null and parentId != ''">
+				and parent_id = #{parentId}
+			</if>
+			<if test="userName != null and userName != ''">
+				and user_name = #{userName}
+			</if>
+			<if test="password != null and password != ''">
+				and password = #{password}
+			</if>
+			<if test="phone != null and phone != ''">
+				and phone = #{phone}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="key != null and key != ''">
+				<![CDATA[ and (name like #{key} or contacts like #{key} or area like #{key}) ]]>
+			</if>
+		</where>
+	</sql>
+	<sql id="basicSelect">
+		SELECT
+		id,
+		name,
+		mobile,
+		contacts,
+		area,
+		parent_id,
+		user_name,
+		password,
+		phone,
+		state,
+		img,
+		version,
+		accumulate_num,
+		accumulate_money,
+		update_time,
+		create_time
+		FROM t_shops
+	</sql>
+	<select id="queryList" resultMap="shops">
+		SELECT * FROM(
+		<include refid="basicQuery" />
+		ORDER BY create_time DESC
+		)AS t
+		<if test="pageSize != null and pageSize != ''">
+			<![CDATA[ LIMIT ${pageNo},${pageSize}]]>
+		</if>
+		
+	</select>
+
+	<select id="queryCount" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(1) as c
+		from(
+		<include refid="basicQuery" />
+		)as t
+	</select>
+
+	<select id="query" resultMap="shops">
+		<include refid="basicSelect" />
+		WHERE id = #{id}
+	</select>
+	
+	<select id="login" resultMap="shops">
+		<include refid="basicSelect" />
+		WHERE user_name = #{userName}
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			INSERT INTO t_shops(
+							name,
+							mobile,
+							contacts,
+							area,
+							parent_id,
+							user_name,
+							password,
+							phone,
+							img,
+							state,
+							update_time,
+							create_time
+			)VALUES(
+							#{name},
+							#{mobile},
+							#{contacts},
+							#{area},
+							#{parentId},
+							#{userName},
+							#{password},
+							#{phone},
+							#{img},
+							0,
+							sysdate(),
+							sysdate()
+			)
+		]]>
+	</insert>
+	<update id="update">
+		UPDATE t_shops SET
+		<if test="name != null and name != ''">
+			name = #{name},
+		</if>
+		<if test="mobile != null and mobile != ''">
+			mobile = #{mobile},
+		</if>
+		<if test="img != null and img != ''">
+			img = #{img},
+		</if>
+		<if test="contacts != null and contacts != ''">
+			contacts = #{contacts},
+		</if>
+		<if test="area != null and area != ''">
+			area = #{area},
+		</if>
+		<if test="parentId != null">
+			parent_id = #{parentId},
+		</if>
+		<if test="userName != null and userName != ''">
+			user_name = #{userName},
+		</if>
+		<if test="password != null and password != ''">
+			password = #{password},
+		</if>
+		<if test="state != null">
+			state = #{state},
+		</if>
+		<if test="accumulateNum != null">
+			accumulate_num = accumulate_num + 1,
+		</if>
+		<if test="accumulateMoney != null and accumulateMoney != ''">
+			accumulate_money = accumulate_money + #{accumulateMoney},
+		</if>
+		<if test="phone != null and phone != ''">
+			phone = #{phone},
+		</if>
+			update_time = sysdate(),
+			version = version + 1
+		WHERE id= #{id} and version = #{version}
+	</update>
+
+	<update id="delete" parameterType="java.lang.String">
+		UPDATE t_shops SET state = 1,update_time = sysdate() WHERE id in
+		<foreach item="idItem" collection="array" open="(" separator=","
+			close=")">
+			#{idItem}
+		</foreach>
+	</update>
+</mapper>

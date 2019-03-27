@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jcoffee.database.mall.mapper.SystemUserMapper">
+	<resultMap id="systemUser" type="com.jcoffee.database.mall.entity.SystemUser">
+		<result property="id" column="id" />
+		<result property="mobile" column="mobile" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="gender" column="gender" />
+		<result property="createUserId" column="create_user_id" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+	<select id="login" resultMap="systemUser" parameterType="java.lang.String">
+		SELECT
+		id,
+		mobile,
+		password,
+		name,
+		gender,
+		create_user_id,
+		create_time
+		FROM t_system_user
+		<where>
+			mobile = #{mobile}
+		</where>
+	</select>
+</mapper>

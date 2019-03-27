@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jcoffee.database.order.mapper.OrderCouponMapper">
+	<!-- 订单劵 -->
+	<resultMap id="orderCoupon" type="com.jcoffee.database.order.entity.OrderCoupon">
+		<result property="id" column="id" />
+		<result property="consumerCoupon" column="consumer_coupon" />
+		<result property="state" column="state" />
+		<result property="checkTime" column="check_time" />
+		<result property="checkOpenid" column="check_openid" />
+		<result property="parentOpenid" column="parent_openid" />
+		<result property="openid" column="openid" />
+		<result property="orderId" column="order_id" />
+		<result property="orderNumber" column="order_number" />
+		<result property="shopsId" column="shops_id" />
+		<result property="commodityId" column="commodity_id" />
+		<result property="commodityName" column="commodity_name" />
+		<result property="price" column="price" />
+		<result property="cancelEndTime" column="cancel_end_time" />
+		<result property="createTime" column="create_time" />
+		<result property="version" column="version" />
+		<result property="remark" column="remark" />
+		<result property="listImg" column="list_img" />
+		<result property="mobile" column="mobile" />
+		<result property="nickName" column="nick_name" />
+		<result property="commission" column="commission" />
+		<result property="bonus" column="bonus" />
+		<result property="take" column="take" />
+	</resultMap>
+
+	<sql id="basicSelect">
+		SELECT
+		id,
+		consumer_coupon,
+		state,
+		check_time,
+		check_openid,
+		bonus,
+		commission,
+		mobile,
+		nick_name,
+		order_id,
+		order_number,
+		list_img,
+		take,
+		remark,
+		shops_id,
+		commodity_id,
+		commodity_name,
+		price,
+		parent_openid,
+		cancel_end_time,
+		openid,
+		version,
+		create_time
+		FROM t_order_coupon
+	</sql>
+
+	<sql id="basicWhere">
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="consumerCoupon != null and consumerCoupon != ''">
+				and consumer_coupon = #{consumerCoupon}
+			</if>
+			<if test="state != null">
+				and state = #{state}
+			</if>
+			<if test="checkTime != null">
+				and check_time = #{checkTime}
+			</if>
+			<if test="checkOpenid != null and checkOpenid != ''">
+				and check_openid = #{checkOpenid}
+			</if>
+			<if test="openid != null and openid != ''">
+				and openid = #{openid}
+			</if>
+			<if test="parentOpenid != null and parentOpenid != ''">
+				and parent_openid = #{parentOpenid}
+			</if>
+			<if test="orderId != null and orderId != ''">
+				and order_id = #{orderId}
+			</if>
+			<if test="orderNumber != null and orderNumber != ''">
+				and order_number = #{orderNumber}
+			</if>
+			<if test="shopsId != null">
+				and shops_id = #{shopsId}
+			</if>
+			<if test="commodityId != null">
+				and commodity_id = #{commodityId}
+			</if>
+			<if test="commodityName != null and commodityName != ''">
+				and commodity_name = #{commodityName}
+			</if>
+			<if test="price != null and price != ''">
+				and price = #{price}
+			</if>
+			<if test="startDate != null">
+				<![CDATA[ and date_format(create_time, '%Y-%m-%d') <= #{startDate}]]>
+			</if>
+			<if test="endDate != null">
+				<![CDATA[ and date_format(create_time, '%Y-%m-%d') >= #{endDate}]]>
+			</if>
+		</where>
+	</sql>
+
+	<select id="queryList" resultMap="orderCoupon">
+		SELECT * FROM(
+		<include refid="basicSelect" />
+		<include refid="basicWhere" />
+		ORDER BY check_time DESC
+		)AS t
+		<if test="pageSize != null and pageSize != ''">
+			<![CDATA[ LIMIT ${pageNo},${pageSize}]]>
+		</if>
+	</select>
+
+	<select id="queryCount" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(1) as c
+		from(
+		<include refid="basicSelect" />
+		<include refid="basicWhere" />
+		)as t
+	</select>
+
+	<select id="query" resultMap="orderCoupon">
+		<include refid="basicSelect" />
+			where id = #{id}
+	</select>
+	
+	<select id="queryOrderCouponByConsumerCoupon" resultMap="orderCoupon">
+		<include refid="basicSelect" />
+			where consumer_coupon = #{consumerCoupon} and state = 0
+			<![CDATA[ and date_format(cancel_end_time, '%Y%m%d') >= date_format(sysdate(), '%Y%m%d')]]>
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			INSERT INTO t_order_coupon(
+													consumer_coupon,
+													check_time,
+													check_openid,
+													order_id,
+													order_number,
+													shops_id,
+													commodity_id,
+													commodity_name,
+													parent_openid,
+													price,
+													openid,
+													bonus,
+													commission,
+													mobile,
+													nick_name,
+													cancel_end_time,
+													remark,
+													create_time
+									)VALUES(
+													#{consumerCoupon},
+													#{checkTime},
+													#{checkOpenid},
+													#{orderId},
+													#{orderNumber},
+													#{shopsId},
+													#{commodityId},
+													#{commodityName},
+													#{parentOpenid},
+													#{price},
+													#{openid},
+													#{bonus},
+													#{commission},
+													#{mobile},
+													#{nickName},
+													#{cancelEndTime},
+													#{remark},
+													sysdate()
+									)
+		]]>
+	</insert>
+	<update id="update">
+		UPDATE t_order_coupon SET
+		<if test="state != null ">
+			state = #{state},
+		</if>
+		<if test="checkTime != null">
+			check_time = sysdate(),
+		</if>
+		<if test="checkOpenid != null and checkOpenid != ''">
+			check_openid = #{checkOpenid},
+		</if>
+		version = version + 1
+		WHERE consumer_coupon = #{consumerCoupon} and version = #{version}
+	</update>
+	
+	<update id="updateTakeState">
+		UPDATE t_order_coupon SET
+		take = #{take}
+		WHERE parent_openid = #{parentOpenid} and take = #{whereTake}
+		<![CDATA[ and date_sub(date_format(create_time, '%Y%m%d'),interval -1 day) 
+		<= date_format(sysdate(), '%Y-%m-%d') ]]>
+	</update>
+	
+	<select id="countAlreadyMoney" resultType="java.math.BigDecimal"
+		parameterType="map">
+		select sum(bonus+commission) as c
+		from t_order_coupon 
+		<where>
+			<if test="parentOpenid != null">
+				and parent_openid = #{parentOpenid}
+			</if>
+			<if test="take != null">
+				and take = #{take}
+			</if>
+			<if test="openid != null">
+				and openid = #{openid}
+			</if>
+		</where>
+	</select>
+	
+	
+	<insert id="batchAdd" parameterType="list">
+		INSERT INTO t_order_coupon(
+				consumer_coupon,
+													order_id,
+													order_number,
+													shops_id,
+													commodity_id,
+													commodity_name,
+													parent_openid,
+													price,
+													openid,
+													bonus,
+													commission,
+													mobile,
+													nick_name,
+													cancel_end_time,
+													remark,
+													create_time
+		)VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{consumerCoupon},
+													#{orderId},
+													#{orderNumber},
+													#{shopsId},
+													#{commodityId},
+													#{commodityName},
+													#{parentOpenid},
+													#{price},
+													#{openid},
+													#{bonus},
+													#{commission},
+													#{mobile},
+													#{nickName},
+													#{cancelEndTime},
+													#{remark},
+													sysdate()
+				)
+		</foreach>
+	</insert>
+</mapper>

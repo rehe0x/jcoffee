@@ -1,0 +1,49 @@
+server:
+  port: 8997
+spring:
+  profiles:
+    active: dev
+  application:
+    name: jcoffee-business-order-server
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml
+
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: jcoffee-config-server
+      profile: dev
+      #label: gatekeeper
+      name: database
+eureka:
+  client:
+    serviceUrl:
+        defaultZone: http://localhost:9000/eureka/
+  instance:
+    prefer-ip-address: true
+
+---
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      profile: beta
+      #label: gatekeeper
+      name: common,database
+
+---
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      profile: prod
+      #label: gatekeeper
+      name: common,database

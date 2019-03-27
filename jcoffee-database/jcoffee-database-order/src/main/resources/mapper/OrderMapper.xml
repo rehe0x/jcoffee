@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jcoffee.database.order.mapper.OrderMapper">
+	<resultMap id="order" type="com.jcoffee.database.order.entity.Order">
+		<result property="id" column="id" />
+		<result property="orderNumber" column="order_number" />
+		<result property="shopsId" column="shops_id" />
+		<result property="commodityId" column="commodity_id" />
+		<result property="commodityName" column="commodity_name" />
+		<result property="state" column="state" />
+		<result property="remark" column="remark" />
+		<result property="listImg" column="list_img" />
+		<result property="price" column="price" />
+		<result property="costPrice" column="cost_price" />
+		<result property="purchaseNum" column="purchase_num" />
+		<result property="totalPrice" column="total_price" />
+		<result property="openid" column="openid" />
+		<result property="parentOpenid" column="parent_openid" />
+		<result property="paymentTime" column="payment_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="createTime" column="create_time" />
+		<result property="nickName" column="nick_name" />
+		<result property="mobile" column="mobile" />
+		<result property="talent" column="talent" />
+		<result property="actualPrice" column="actual_price" />
+		<result property="cancelEndTime" column="cancel_end_time" />
+		<result property="version" column="version" />
+	</resultMap>
+
+
+	<sql id="basicQuery">
+		SELECT
+		id,
+		order_number,
+		shops_id,
+		commodity_id,
+		nick_name,
+		commodity_name,
+		mobile,
+		state,
+		remark,
+		talent,
+		price,
+		cost_price,
+		purchase_num,
+		total_price,
+		openid,
+		parent_openid,
+		payment_time,
+		update_time,
+		cancel_end_time,
+		actual_price,
+		version,
+		list_img,
+		create_time
+		FROM t_order
+	</sql>
+
+	<sql id="basicWhere">
+		<where>
+			<if test="orderNumber != null and orderNumber != ''">
+				and order_number = #{orderNumber}
+			</if>
+			<if test="shopsId != null and shopsId != ''">
+				and shops_id = #{shopsId}
+			</if>
+			<if test="commodityId != null and commodityId != ''">
+				and commodity_id = #{commodityId}
+			</if>
+			<if test="state != null">
+				and state = #{state}
+			</if>
+			<if test="price != null and price != ''">
+				and price = #{price}
+			</if>
+			<if test="costPrice != null and costPrice != ''">
+				and cost_price = #{costPrice}
+			</if>
+			<if test="purchaseNum != null and purchaseNum != ''">
+				and purchase_num = #{purchaseNum}
+			</if>
+			<if test="totalPrice != null and totalPrice != ''">
+				and total_price = #{totalPrice}
+			</if>
+			<if test="openid != null and openid != ''">
+				and openid = #{openid}
+			</if>
+			<if test="startDate != null">
+				<![CDATA[ and date_format(create_time, '%Y-%m-%d') <= #{startDate}]]>
+			</if>
+			<if test="endDate != null">
+				<![CDATA[ and date_format(create_time, '%Y-%m-%d') >= #{endDate}]]>
+			</if>
+		</where>
+	</sql>
+	<select id="queryList" resultMap="order">
+		SELECT * FROM(
+		<include refid="basicQuery" />
+		<include refid="basicWhere" />
+		)AS t
+		<if test="pageSize != null and pageSize != ''">
+			<![CDATA[ LIMIT ${pageNo},${pageSize}]]>
+		</if>
+	</select>
+
+	<select id="queryCount" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(1) as c
+		from(
+		<include refid="basicQuery" />
+		<include refid="basicWhere" />
+		)as t
+	</select>
+
+	<select id="query" resultMap="order">
+		<include refid="basicQuery" />
+		where id = #{id}
+	</select>
+	<select id="queryByOrderNumber" resultMap="order">
+		<include refid="basicQuery" />
+		where order_number = #{orderNumber}
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			INSERT INTO t_order(
+													order_number,
+													shops_id,
+													commodity_id,
+													commodity_name,
+													state,
+													remark,
+													price,
+													cost_price,
+													purchase_num,
+													total_price,
+													openid,
+													parent_openid,
+													list_img,
+													cancel_end_time,
+													talent,
+													nick_name,
+													mobile,
+													actual_price,
+													update_time,
+													create_time
+									)VALUES(
+													#{orderNumber},
+													#{shopsId},
+													#{commodityId},
+													#{commodityName},
+													1,
+													#{remark},
+													#{price},
+													#{costPrice},
+													#{purchaseNum},
+													#{totalPrice},
+													#{openid},
+													#{parentOpenid},
+													#{listImg},
+													#{cancelEndTime},
+													#{talent},
+													#{nickName},
+													#{mobile},
+													#{actualPrice},
+													sysdate(),
+													sysdate()
+									)
+		]]>
+	</insert>
+	<update id="update">
+		UPDATE t_order SET
+		<if test="state != null">
+			state = #{state},
+		</if>
+		<if test="paymentTime != null">
+			payment_time = sysdate(),
+		</if>
+		update_time = sysdate(),
+		version = version + 1
+		WHERE id= #{id} and version = #{version}
+	</update>
+
+
+</mapper>
