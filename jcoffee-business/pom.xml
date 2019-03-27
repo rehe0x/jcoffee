@@ -15,6 +15,7 @@
     <modules>
         <module>jcoffee-business-order</module>
         <module>jcoffee-business-mall</module>
+        <module>jcoffee-business-manage</module>
     </modules>
 
     <dependencies>
@@ -24,11 +25,15 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jcoffee</groupId>
+            <artifactId>jcoffee-commons-basics</artifactId>
         </dependency>
     </dependencies>
 </project>

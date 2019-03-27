@@ -52,6 +52,11 @@
             </dependency>
             <dependency>
                 <groupId>com.jcoffee</groupId>
+                <artifactId>jcoffee-commons-basics</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jcoffee</groupId>
                 <artifactId>jcoffee-database-order</artifactId>
                 <version>1.0</version>
             </dependency>

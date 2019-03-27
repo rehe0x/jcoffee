@@ -4,7 +4,8 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
       url: "jdbc:mysql://140.143.208.158/jcoffee-dev?useUnicode=true&characterEncoding=utf8&useNewIO=true"
       username: "root"
-      password: "xiehong123"
+      password: "Xiehong123"
+
 ---
 spring:
   profiles: test
@@ -12,7 +13,8 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
       url: "jdbc:mysql://140.143.208.158/jcoffee-dev?useUnicode=true&characterEncoding=utf8&useNewIO=true"
       username: "root"
-      password: "xiehong123"
+      password: "Xiehong123"
+
 ---
 spring:
   profiles: prod
