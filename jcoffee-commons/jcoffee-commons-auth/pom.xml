@@ -7,20 +7,23 @@
 		<groupId>com.jcoffee</groupId>
 		<version>1.0</version>
 	</parent>
-	<artifactId>jcoffee-commons-basics</artifactId>
+	<artifactId>jcoffee-commons-auth</artifactId>
 	<name>${project.artifactId}</name>
-	<description>基础公共模块</description>
+	<description>授权基础模块</description>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-oauth2</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-security</artifactId>
 		</dependency>
+
 	</dependencies>
+
 
 	<build>
 		<plugins>

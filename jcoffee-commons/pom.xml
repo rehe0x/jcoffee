@@ -14,6 +14,7 @@
 
     <modules>
         <module>jcoffee-commons-basics</module>
+        <module>jcoffee-commons-auth</module>
     </modules>
 
     <dependencies>
