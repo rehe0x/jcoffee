@@ -5,6 +5,8 @@ import com.jcoffee.commons.auth.properties.SecurityProperties;
 import com.jcoffee.commons.basics.constant.SecurityConstants;
 import com.jcoffee.oauth.authprovider.mobile.MobileAuthenticationSecurityConfig;
 import com.jcoffee.oauth.authprovider.openid.OpenIdAuthenticationSecurityConfig;
+import com.jcoffee.oauth.handler.AuthExceptionEntryPoint;
+import com.jcoffee.oauth.handler.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,11 +15,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
@@ -34,6 +36,7 @@ import javax.annotation.Resource;
 @Configuration
 @EnableConfigurationProperties(SecurityProperties.class)
 @Import(DefaultPasswordConfig.class)
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -41,8 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthenticationFailureHandler authenticationFailureHandler;
 
-	@Autowired(required = false)
-	private AuthenticationEntryPoint authenticationEntryPoint;
 
 	@Resource
 	private UserDetailsService userDetailsService;
@@ -65,6 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MobileAuthenticationSecurityConfig mobileAuthenticationSecurityConfig;
 
+	@Autowired
+	private CustomAccessDeniedHandler customAccessDeniedHandler;
+	@Autowired
+	private AuthExceptionEntryPoint authExceptionEntryPoint;
+
 	/**
 	 * 这一步的配置是必不可少的，否则SpringBoot会自动配置一个AuthenticationManager,覆盖掉内存中的用户
 	 * @return 认证管理对象
@@ -77,20 +83,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-                    .antMatchers( securityProperties.getIgnore().getUrls())
+		http.requestMatchers().antMatchers(securityProperties.getAuth().getUrls()).and()
+		.authorizeRequests()
+                    .antMatchers(securityProperties.getIgnore().getUrls())
                     .permitAll()
                     .anyRequest().authenticated()
                     .and()
-                .formLogin()
-                    .loginPage(SecurityConstants.LOGIN_PAGE)
-                    .loginProcessingUrl(SecurityConstants.OAUTH_LOGIN_PRO_URL)
-                    .successHandler(authenticationSuccessHandler)
-                    .failureHandler(authenticationFailureHandler)
-                    .and()
+//                .formLogin()
+//                    .loginPage(SecurityConstants.LOGIN_PAGE)
+//                    .loginProcessingUrl(SecurityConstants.OAUTH_LOGIN_PRO_URL)
+//                    .successHandler(authenticationSuccessHandler)
+//                    .failureHandler(authenticationFailureHandler)
+//                    .and()
 				.logout()
 					.logoutUrl(SecurityConstants.LOGOUT_URL)
-					.logoutSuccessUrl(SecurityConstants.LOGIN_PAGE)
 					.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
 					.addLogoutHandler(oauthLogoutHandler)
 					.clearAuthentication(true)
@@ -104,15 +110,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
 				// 解决不允许显示在iframe的问题
 				.headers().frameOptions().disable().cacheControl();
-
-		// 基于密码 等模式可以无session,不支持授权码模式
-		if (authenticationEntryPoint != null) {
-			http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+			http.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
+				.authenticationEntryPoint(authExceptionEntryPoint);
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		} else {
-			// 授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
-			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-		}
+
 	}
 
 	/**

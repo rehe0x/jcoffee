@@ -6,9 +6,10 @@ spring:
   application:
     name: jcoffee-oauth-server
 
+
 encrypt:
   key-store:
-    location: classpath:jcoffee.jks
+    location: classpath:zlt.jks
     secret: zlt!@#$
     alias: zlt
 

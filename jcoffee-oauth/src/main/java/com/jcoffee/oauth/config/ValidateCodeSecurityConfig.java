@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.jcoffee.oauth.config;
 
@@ -14,14 +14,14 @@ import javax.servlet.Filter;
 
 /**
  * 校验码相关安全配置
- * 
+ *
  * @author zlt
  */
 @Component("validateCodeSecurityConfig")
 public class ValidateCodeSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 	@Resource
 	private Filter validateCodeFilter;
-	
+
 	@Override
 	public void configure(HttpSecurity http) {
 		http.addFilterBefore(validateCodeFilter, AbstractPreAuthenticatedProcessingFilter.class);

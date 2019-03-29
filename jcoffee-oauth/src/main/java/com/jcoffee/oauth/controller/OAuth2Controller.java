@@ -33,6 +33,7 @@ import org.springframework.security.oauth2.provider.TokenRequest;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -50,6 +51,7 @@ import java.util.Map;
 @Api(tags = "OAuth2相关操作")
 @Slf4j
 @RestController
+@RequestMapping("/api")
 public class OAuth2Controller {
     @Resource
     private ObjectMapper objectMapper;
@@ -134,7 +136,10 @@ public class OAuth2Controller {
             OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
             oAuth2Authentication.setAuthenticated(true);
             UserDetails userDetails = (UserDetails)oAuth2Authentication.getUserAuthentication().getPrincipal();
-            writerObj(response, userDetails);
+            Map<String,Object> loginInfo = new HashMap<>();
+            loginInfo.put("userInfo",userDetails);
+            loginInfo.put("token",oAuth2AccessToken);
+            writerObj(response, loginInfo);
         } catch (BadCredentialsException | InternalAuthenticationServiceException e) {
             exceptionHandler(response, badCredenbtialsMsg);
         } catch (Exception e) {

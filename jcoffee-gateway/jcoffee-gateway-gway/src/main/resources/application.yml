@@ -29,6 +29,10 @@ spring:
         uri: lb://jcoffee-business-order-server
         predicates:
         - Path=/api/order/**
+      - id: jcoffee-oauth-server
+        uri: lb://jcoffee-oauth-server
+        predicates:
+        - Path=/api/oauth/**
 
 
 eureka:
