@@ -1,0 +1,19 @@
+spring:
+  profiles: dev
+  redis:
+    host: 140.143.208.158 #f1
+    port: 6379
+    password: Xiehong123
+    timeout: 10000
+---
+spring:
+  profiles: test
+  redis:
+    host: 127.0.0.1 #f1
+    port: 6379
+---
+spring:
+  profiles: prod
+  redis:
+    host: 127.0.0.1 #f1
+    port: 6379

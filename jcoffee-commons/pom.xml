@@ -15,14 +15,8 @@
     <modules>
         <module>jcoffee-commons-basics</module>
         <module>jcoffee-commons-auth</module>
+        <module>jcoffee-commons-redis</module>
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
 
 </project>

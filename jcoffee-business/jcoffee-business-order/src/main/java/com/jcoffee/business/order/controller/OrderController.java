@@ -2,7 +2,7 @@ package com.jcoffee.business.order.controller;
 
 
 import com.jcoffee.business.order.service.OrderService;
-import com.jcoffee.commons.basics.model.JsonResult;
+import com.jcoffee.commons.basics.model.Result;
 import com.jcoffee.database.order.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,14 +22,14 @@ public class OrderController {
     * @return
     */
    @GetMapping("/query")
-   public JsonResult query() {
+   public Result query() {
       List<Order> orderList = null;
       try{
          orderList = orderService.queryList(null);
       }catch (Exception e){
          e.printStackTrace();
       }
-      return JsonResult.success(orderList);
+      return Result.success(orderList);
    }
 
    /**
@@ -38,14 +38,14 @@ public class OrderController {
     * @return
     */
    @GetMapping("/query/{id}")
-   public JsonResult query(@PathVariable("id") Integer id) {
+   public Result query(@PathVariable("id") Integer id) {
       Order order = null;
       try{
          order = orderService.query(id);
       }catch (Exception e){
          e.printStackTrace();
       }
-      return JsonResult.success(order);
+      return Result.success(order);
    }
 
 }
