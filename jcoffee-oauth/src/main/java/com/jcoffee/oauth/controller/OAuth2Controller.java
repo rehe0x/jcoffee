@@ -128,7 +128,7 @@ public class OAuth2Controller {
             String clientSecret = clientInfos[1];
 
             ClientDetails clientDetails = getClient(clientId, clientSecret, null);
-            TokenRequest tokenRequest = new TokenRequest(Maps.newHashMap(), clientId, clientDetails.getScope(), "password");
+            TokenRequest tokenRequest = new TokenRequest(Maps.newHashMap(), clientId, clientDetails.getScope(), "customer");
             OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
             Authentication authentication = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);

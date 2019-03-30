@@ -7,6 +7,7 @@ import com.jcoffee.database.order.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class OrderController {
     * @return
     */
    @GetMapping("/query")
-   public Result query() {
+   public Result query(HttpServletRequest request) {
       List<Order> orderList = null;
       try{
          orderList = orderService.queryList(null);

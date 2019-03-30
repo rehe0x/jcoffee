@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 /**
  * 资源服务器配置
@@ -28,6 +29,12 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     private CustomAccessDeniedHandler customAccessDeniedHandler;
     @Autowired
     private AuthExceptionEntryPoint authExceptionEntryPoint;
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+        resources.authenticationEntryPoint(authExceptionEntryPoint)//token验证失败处理器
+                .accessDeniedHandler(customAccessDeniedHandler);
+    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
