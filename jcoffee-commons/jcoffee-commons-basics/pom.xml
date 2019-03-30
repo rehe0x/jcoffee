@@ -10,6 +10,7 @@
 	<artifactId>jcoffee-commons-basics</artifactId>
 	<name>${project.artifactId}</name>
 	<description>基础公共模块</description>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>
