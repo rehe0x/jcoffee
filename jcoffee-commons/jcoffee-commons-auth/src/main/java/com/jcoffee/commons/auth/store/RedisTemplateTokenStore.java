@@ -79,7 +79,8 @@ public class RedisTemplateTokenStore implements TokenStore {
     }
 
     public OAuth2Authentication readAuthenticationForRefreshToken(String token) {
-        return (OAuth2Authentication) this.redisTemplate.opsForValue().get(REFRESH_AUTH + token);
+        OAuth2Authentication auth =(OAuth2Authentication) this.redisTemplate.opsForValue().get(REFRESH_AUTH + token);
+        return auth;
     }
 
     @Override
@@ -195,7 +196,8 @@ public class RedisTemplateTokenStore implements TokenStore {
 
     @Override
     public OAuth2RefreshToken readRefreshToken(String tokenValue) {
-        return (OAuth2RefreshToken) this.redisTemplate.opsForValue().get(REFRESH + tokenValue);
+        OAuth2RefreshToken auth = (OAuth2RefreshToken) this.redisTemplate.opsForValue().get(REFRESH + tokenValue);
+        return auth;
     }
 
     @Override

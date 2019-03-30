@@ -2,6 +2,7 @@ package com.jcoffee.oauth.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jcoffee.database.auth.app.entity.AppUser;
+import com.jcoffee.database.auth.sys.entity.SysUser;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.util.CollectionUtils;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,9 +18,8 @@ import java.util.Set;
 /**
  * 用户实体绑定spring security
  */
-@Getter
-@Setter
-public class LoginAppUser extends AppUser implements SocialUserDetails {
+
+public class LoginAppUser extends SysUser implements SocialUserDetails {
     private static final long serialVersionUID = -3685249101751401211L;
 
     private Set<String> permissions;
@@ -35,6 +36,8 @@ public class LoginAppUser extends AppUser implements SocialUserDetails {
         }
         return collection;
     }
+
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -59,5 +62,17 @@ public class LoginAppUser extends AppUser implements SocialUserDetails {
     @Override
     public String getUserId() {
         return getOpenId();
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Set<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
     }
 }

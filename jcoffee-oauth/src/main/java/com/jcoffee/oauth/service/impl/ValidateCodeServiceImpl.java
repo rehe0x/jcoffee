@@ -5,6 +5,7 @@ import com.jcoffee.commons.basics.model.Result;
 import com.jcoffee.commons.redis.template.RedisRepository;
 import com.jcoffee.database.auth.app.entity.AppUser;
 import com.jcoffee.oauth.exception.ValidateCodeException;
+import com.jcoffee.oauth.model.LoginAppUser;
 import com.jcoffee.oauth.service.IValidateCodeService;
 import com.jcoffee.oauth.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +60,7 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
             return Result.fail("验证码未失效，请失效后再次申请");
         }
 
-        AppUser user = userService.findByMobile(mobile);
+        LoginAppUser user = userService.findByMobile(mobile);
         if (user != null) {
             log.error("根据用户手机号{}查询用户为空", mobile);
             return Result.fail("手机号不存在");

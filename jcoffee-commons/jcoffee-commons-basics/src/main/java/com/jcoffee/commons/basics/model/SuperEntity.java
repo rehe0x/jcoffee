@@ -3,6 +3,7 @@ package com.jcoffee.commons.basics.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 @Setter
 @Getter
-public class SuperEntity {
+public class SuperEntity implements Serializable {
     /**
      * 主键ID
      */

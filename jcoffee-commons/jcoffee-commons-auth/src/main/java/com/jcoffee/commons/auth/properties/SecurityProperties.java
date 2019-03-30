@@ -14,6 +14,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @ConfigurationProperties(prefix = "jcoffee.security")
 @RefreshScope
 public class SecurityProperties {
+    
     private AuthProperties auth = new AuthProperties();
 
     private PermitProperties ignore = new PermitProperties();
