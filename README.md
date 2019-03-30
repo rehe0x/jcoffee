@@ -4,4 +4,5 @@
 仅作为学习
 
 感谢 open-capacity-platform 项目作者 owen 提供帮助
+oauth部分参考
 https://gitee.com/owenwangwen/open-capacity-platform
