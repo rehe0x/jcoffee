@@ -1,10 +1,6 @@
-server:
-  port: 9999
 spring:
   profiles:
     active: dev
-  application:
-    name: jcoffee-gateway-gway
 
 ---
 spring:

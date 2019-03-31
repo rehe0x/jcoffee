@@ -1,3 +1,16 @@
+server:
+  port: ${randomServerPort.value[7000,7005]}
+spring:
+  application:
+    name: jcoffee-oauth-server
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml
+
+encrypt:
+  key-store:
+    location: classpath:zlt.jks
+    secret: zlt!@#$
+    alias: zlt
 
 jcoffee:
   oauth2:

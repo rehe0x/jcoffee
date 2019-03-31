@@ -1,18 +1,11 @@
 spring:
   profiles:
-    active: dev
+    active: native
 
 ---
 spring:
-  profiles: dev
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: jcoffee-config-server
-      profile: dev
-      label: oauth
-      name: database,redis
+  profiles: native
+
 eureka:
   client:
     serviceUrl:

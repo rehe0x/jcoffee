@@ -1,12 +1,6 @@
-server:
-  port: 8998
 spring:
   profiles:
     active: dev
-  application:
-    name: jcoffee-business-mall-server
-mybatis:
-  mapper-locations: classpath*:/mapper/*.xml
 
 ---
 spring:

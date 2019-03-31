@@ -5,7 +5,9 @@ spring:
       url: "jdbc:mysql://140.143.208.158/jcoffee-dev?useUnicode=true&characterEncoding=utf8&useNewIO=true"
       username: "root"
       password: "Xiehong123"
-
+      hikari:
+        minimum-idle: 20
+        maximum-pool-size: 100
 ---
 spring:
   profiles: test

@@ -1,0 +1,7 @@
+server:
+  port: ${randomServerPort.value[6000,6005]}
+spring:
+  application:
+    name: jcoffee-business-order-server
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml

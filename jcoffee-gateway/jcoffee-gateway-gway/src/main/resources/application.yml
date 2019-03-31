@@ -1,11 +1,8 @@
-logging:
-  level:
-    org.springframework.cloud.gateway: trace
-    org.springframework.http.server.reactive: debug
-    org.springframework.web.reactive: debug
-    reactor.ipc.netty: debug
-
+server:
+  port: ${randomServerPort.value[9998,10000]}
 spring:
+  application:
+    name: jcoffee-gateway-gway
   cloud:
     gateway:
       globalcors:
@@ -31,3 +28,12 @@ spring:
   #相同bean覆盖
   main:
     allow-bean-definition-overriding: true
+
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+    org.springframework.http.server.reactive: debug
+    org.springframework.web.reactive: debug
+    reactor.ipc.netty: debug

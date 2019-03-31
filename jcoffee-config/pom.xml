@@ -18,6 +18,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.jcoffee</groupId>
+            <artifactId>jcoffee-commons-basics</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>
         </dependency>

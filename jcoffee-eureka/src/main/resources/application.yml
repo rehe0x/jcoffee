@@ -1,11 +1,50 @@
+spring:
+  profiles:
+    active: s1
+  application:
+        name: jcoffee-eureka
+
+
+#多个实例集群高可用配置 如需配第三个需要走host映射到127.0.0.1
+#因为hostname不能相同
+---
+spring:
+  profiles: s1
 server:
   port: 9000
 
 eureka:
+  server:
+    enable-self-preservation: false   #关闭服务器自我保护，客户端心跳检测15分钟内错误达到80%服务会保护，导致别人还认为是好用的服务
+    eviction-interval-timer-in-ms: 15000 #清理间隔（单位毫秒，默认是60*1000）5秒将客户端剔除的服务在服务注册列表中剔除#
   instance:
+    prefer-ip-address: false
     hostname: localhost
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://127.0.0.1:9001/eureka/
+
+
+---
+spring:
+  profiles: s2
+server:
+  port: 9001
+
+eureka:
+  server:
+    enable-self-preservation: false   #关闭服务器自我保护，客户端心跳检测15分钟内错误达到80%服务会保护，导致别人还认为是好用的服务
+    eviction-interval-timer-in-ms: 15000 #清理间隔（单位毫秒，默认是60*1000）5秒将客户端剔除的服务在服务注册列表中剔除#
+  instance:
+    prefer-ip-address: false
+    hostname: 127.0.0.1
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+
