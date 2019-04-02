@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: s2
+    active: s1
   application:
         name: jcoffee-eureka
 

@@ -1,0 +1,39 @@
+spring:
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+  security:
+    user:
+      name: jcoffee
+      password: jcoffee
+eureka:
+  client:
+    serviceUrl:
+        defaultZone: http://localhost:9000/eureka/
+  instance:
+    prefer-ip-address: true
+
+---
+#spring:
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#      profile: beta
+#      #label: gatekeeper
+#      name: common,database
+#
+#---
+#spring:
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#      profile: prod
+#      #label: gatekeeper
+#      name: common,database
