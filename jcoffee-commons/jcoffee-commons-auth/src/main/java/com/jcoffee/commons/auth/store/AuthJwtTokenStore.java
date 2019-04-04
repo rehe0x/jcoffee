@@ -13,7 +13,7 @@ import java.security.KeyPair;
 /**
  * 认证服务器使用 JWT RSA 非对称加密令牌
  *
- * @author zlt
+ * @author no
  * @date 2018/7/24 16:21
  */
 public class AuthJwtTokenStore {

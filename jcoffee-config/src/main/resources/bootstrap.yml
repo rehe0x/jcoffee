@@ -5,7 +5,10 @@ spring:
 ---
 spring:
   profiles: native
-
+  security:
+    user:
+      name: jcoffee
+      password: jcoffee
 eureka:
   client:
     serviceUrl:

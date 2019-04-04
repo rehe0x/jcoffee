@@ -1,4 +1,4 @@
-package com.jcoffee.monitor.sb.admin.config;
+package com.jcoffee.monitor.sb.admin.security;
 
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +13,10 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
  * @create: 2019/04/02 23:00 
  */
 @Configuration
-public  class SecuritySecureConfig extends WebSecurityConfigurerAdapter {
+public  class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final String adminContextPath;
 
-    public SecuritySecureConfig(AdminServerProperties adminServerProperties) {
+    public WebSecurityConfig(AdminServerProperties adminServerProperties) {
         this.adminContextPath = adminServerProperties.getContextPath();
     }
 

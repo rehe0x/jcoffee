@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * mobile的相关处理配置
  *
- * @author zlt
+ * @author no
  */
 @Component
 public class MobileAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

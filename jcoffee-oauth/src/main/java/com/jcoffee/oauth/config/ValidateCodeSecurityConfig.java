@@ -15,7 +15,7 @@ import javax.servlet.Filter;
 /**
  * 校验码相关安全配置
  *
- * @author zlt
+ * @author no
  */
 @Component("validateCodeSecurityConfig")
 public class ValidateCodeSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

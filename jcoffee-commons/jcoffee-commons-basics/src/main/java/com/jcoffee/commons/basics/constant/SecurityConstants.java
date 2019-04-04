@@ -99,9 +99,9 @@ public interface SecurityConstants {
      */
     String DEFAULT_IMAGE_FONT_SIZE = "30";
     /**
-     * zlt公共前缀
+     * jcoffee公共前缀
      */
-    String ZLT_PREFIX = "zlt:";
+    String JCOFFEE_PREFIX = "jcoffee:";
     /**
      * 缓存client的redis key，这里是hash结构存储
      */

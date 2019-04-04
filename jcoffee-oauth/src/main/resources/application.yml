@@ -8,9 +8,10 @@ mybatis:
 
 encrypt:
   key-store:
-    location: classpath:zlt.jks
-    secret: zlt!@#$
-    alias: zlt
+    location: classpath:jcoffee.jks
+    password: jcoffee
+    secret: jcoffee
+    alias: jcoffee
 
 jcoffee:
   oauth2:
@@ -22,6 +23,7 @@ jcoffee:
       # 忽略认证的地址
       httpUrls: >
         /validata/**,
+        /refresh,
         /login.html,
         /css/**,
         /images/**,
@@ -33,3 +35,9 @@ jcoffee:
     code:
       # 忽略验证码的应用编号
       ignoreClientCode: app
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

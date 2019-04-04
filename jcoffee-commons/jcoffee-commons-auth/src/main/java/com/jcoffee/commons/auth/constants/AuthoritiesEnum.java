@@ -3,7 +3,7 @@ package com.jcoffee.commons.auth.constants;
 /**
  * 权限常量
  *
- * @author zlt
+ * @author no
  * @date 2018/7/24 16:05
  */
 public enum AuthoritiesEnum {

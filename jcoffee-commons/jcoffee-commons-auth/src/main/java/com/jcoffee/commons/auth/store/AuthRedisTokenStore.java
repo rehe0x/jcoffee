@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  * 认证服务器使用Redis存取令牌
  * 注意: 需要配置redis参数
  *
- * @author zlt
+ * @author no
  * @date 2018/7/25 9:36
  */
 public class AuthRedisTokenStore {

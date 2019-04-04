@@ -10,6 +10,8 @@ spring:
       discovery:
         enabled: true
         service-id: jcoffee-config-server
+      username: jcoffee
+      password: jcoffee
       profile: dev
       #label: gatekeeper
       name: database

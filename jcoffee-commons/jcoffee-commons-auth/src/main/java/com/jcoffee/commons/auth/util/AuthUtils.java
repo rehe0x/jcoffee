@@ -13,7 +13,7 @@ import java.util.Enumeration;
 /**
  * 认证授权相关工具类
  *
- * @author zlt
+ * @author no
  * @date 2018/5/13
  */
 @Slf4j

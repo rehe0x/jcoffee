@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 支持redis cluster模式
  *
- * @author zlt
+ * @author no
  * @date 2018/7/27 11:33
  */
 @Slf4j

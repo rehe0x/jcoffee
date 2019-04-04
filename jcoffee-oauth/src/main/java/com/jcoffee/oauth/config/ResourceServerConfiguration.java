@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 /**
  * 资源服务器配置
  *
- * @author zlt
+ * @author no
  * @date 2018/10/27
  */
 @Configuration
