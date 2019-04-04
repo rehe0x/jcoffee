@@ -3,5 +3,10 @@ server:
 spring:
   application:
     name: jcoffee-business-order-server
+  zipkin:
+    base-url: http://jcoffee-monitor-zipkin/
+  sleuth:
+    sampler:
+      probability: 1.0
 mybatis:
   mapper-locations: classpath*:/mapper/*.xml

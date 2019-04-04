@@ -1,0 +1,15 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: jcoffee-monitor-zipkin
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    web:
+      server:
+        auto-time-requests: false

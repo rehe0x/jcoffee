@@ -28,8 +28,11 @@ spring:
   #相同bean覆盖
   main:
     allow-bean-definition-overriding: true
-
-
+  zipkin:
+    base-url: http://jcoffee-monitor-zipkin/
+  sleuth:
+    sampler:
+      probability: 1.0
 
 logging:
   level:
