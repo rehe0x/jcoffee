@@ -14,5 +14,6 @@
 
     <modules>
         <module>jcoffee-monitor-sb-admin</module>
+        <module>jcoffee-monitor-zipkin</module>
     </modules>
 </project>
