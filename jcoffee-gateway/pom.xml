@@ -13,7 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>jcoffee-gateway-gway</module>
+        <module>jcoffee-gateway-api-gway</module>
+        <module>jcoffee-gateway-manage-gway</module>
         <module>jcoffee-gateway-zuul</module>
     </modules>
 
