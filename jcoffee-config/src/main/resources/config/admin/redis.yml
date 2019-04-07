@@ -1,7 +1,7 @@
 spring:
   profiles: dev
   redis:
-    database: 6
+    database: 7
     host: 140.143.208.158 #f1
     port: 6379
     password: Xiehong123

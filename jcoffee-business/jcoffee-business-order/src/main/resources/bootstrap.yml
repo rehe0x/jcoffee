@@ -13,7 +13,7 @@ spring:
       username: jcoffee
       password: jcoffee
       profile: dev
-      #label: gatekeeper
+      label: order
       name: database
 eureka:
   client:
