@@ -2,7 +2,7 @@ server:
   port: ${randomServerPort.value[9998,10000]}
 spring:
   application:
-    name: jcoffee-gateway-api-gway
+    name: jcoffee-gateway-app-gway
   cloud:
     gateway:
       globalcors:

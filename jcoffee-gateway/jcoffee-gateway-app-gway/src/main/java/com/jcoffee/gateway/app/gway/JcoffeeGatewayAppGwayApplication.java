@@ -1,4 +1,4 @@
-package com.jcoffee.gateway.api.gway;
+package com.jcoffee.gateway.app.gway;
 
 import com.jcoffee.commons.basics.util.port.PortApplicationEnvironmentPreparedEventListener;
 import org.springframework.boot.SpringApplication;
@@ -7,10 +7,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class JcoffeeGatewayGwayApplication {
+public class JcoffeeGatewayAppGwayApplication {
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(JcoffeeGatewayGwayApplication.class);
+        SpringApplication app = new SpringApplication(JcoffeeGatewayAppGwayApplication.class);
         app.addListeners(new PortApplicationEnvironmentPreparedEventListener());
         app.run(args);
     }

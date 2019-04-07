@@ -1,6 +1,6 @@
-package com.jcoffee.gateway.api.gway.exception;
+package com.jcoffee.gateway.app.gway.exception;
 
-import com.jcoffee.gateway.api.gway.exception.handle.JsonExceptionHandler;
+import com.jcoffee.gateway.app.gway.exception.handle.JsonExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.ServerProperties;

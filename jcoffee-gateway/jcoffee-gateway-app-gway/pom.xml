@@ -8,7 +8,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>jcoffee-gateway-api-gway</artifactId>
+    <artifactId>jcoffee-gateway-app-gway</artifactId>
     <name>${project.artifactId}</name>
     <description>gateway网关</description>
     <packaging>jar</packaging>

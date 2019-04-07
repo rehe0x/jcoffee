@@ -1,4 +1,4 @@
-package com.jcoffee.gateway.api.gway.exception.handle;
+package com.jcoffee.gateway.app.gway.exception.handle;
 
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;

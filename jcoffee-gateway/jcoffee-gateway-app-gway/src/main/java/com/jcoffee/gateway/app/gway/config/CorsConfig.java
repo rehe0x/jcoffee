@@ -1,4 +1,4 @@
-package com.jcoffee.gateway.api.gway.config;
+package com.jcoffee.gateway.app.gway.config;
 
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitionLocator;

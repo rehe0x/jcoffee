@@ -1,4 +1,4 @@
-package com.jcoffee.gateway.api.gway.filter;
+package com.jcoffee.gateway.app.gway.filter;
 
 import com.jcoffee.commons.basics.model.Result;
 import org.apache.commons.lang3.StringUtils;
