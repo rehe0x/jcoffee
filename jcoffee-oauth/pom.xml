@@ -14,6 +14,7 @@
 
     <modules>
         <module>jcoffee-oauth-app</module>
+        <module>jcoffee-oauth-admin</module>
     </modules>
 
 
