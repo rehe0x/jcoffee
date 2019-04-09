@@ -1,0 +1,48 @@
+server:
+  port: ${randomServerPort.value[7000,7005]}
+spring:
+  application:
+    name: jcoffee-oauth-app-server
+  zipkin:
+    base-url: http://jcoffee-monitor-zipkin/
+  sleuth:
+    sampler:
+      probability: 1.0
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml
+
+encrypt:
+  key-store:
+    location: classpath:jcoffee.jks
+    password: jcoffee
+    secret: jcoffee
+    alias: jcoffee
+
+jcoffee:
+  oauth2:
+    token:
+      store:
+        type: redis
+  security:
+    ignore:
+      # 忽略认证的地址
+      httpUrls: >
+        /validata/**,
+        /refresh,
+        /login.html,
+        /css/**,
+        /images/**,
+        /js/**
+    auth:
+      httpUrls: >
+        /wx/**,
+        /clients
+    code:
+      # 忽略验证码的应用编号
+      ignoreClientCode: app
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

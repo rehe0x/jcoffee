@@ -21,8 +21,8 @@ spring:
         uri: lb://jcoffee-business-order-server
         predicates:
         - Path=/api/order/**
-      - id: jcoffee-oauth-server
-        uri: lb://jcoffee-oauth-server
+      - id: jcoffee-oauth-admin-server
+        uri: lb://jcoffee-oauth-admin-server
         predicates:
         - Path=/api/oauth/**
   #相同bean覆盖
